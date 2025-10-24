@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flext Filo Car — Final</title>
+  <style>
+    :root{--bg:#ffffff;--accent:#c8102e;--muted:#666;--accent-dark:#9b081f;--wa:#25D366}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#111}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+    header{position:sticky;top:0;background:#fff;border-bottom:2px solid #f2f2f2;z-index:120}
+    .nav{display:flex;align-items:center;gap:12px;padding:12px 18px;flex-wrap:wrap}
+    .logo{font-weight:800;color:var(--accent);font-size:20px}
+    .nav a{color:#fff;background:var(--accent);padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700}
+    .nav .link{background:transparent;color:var(--accent);padding:8px 10px;border-radius:6px;text-decoration:none;font-weight:700}
+
+    .hero{margin-top:14px;border-radius:10px;overflow:hidden;background:linear-gradient(90deg, rgba(200,16,46,0.06), rgba(0,0,0,0.02));padding:18px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+    .hero h1{margin:0;color:var(--accent)}
+    .hero p{color:var(--muted);margin:6px 0 0}
+
+    .grid-wide{display:flex;gap:18px;margin-top:16px}
+    .left-col{flex:1}
+    .right-col{width:320px}
+
+    /* cards */
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:8px}
+    .card{background:#fff;border-radius:10px;overflow:hidden;border:1px solid #f0f0f0;position:relative;box-shadow:0 6px 18px rgba(0,0,0,.04);padding-bottom:10px}
+    .card img{width:100%;height:150px;object-fit:cover;display:block}
+    .card .body{padding:10px}
+    .car-name{font-weight:800;color:#111}
+    .muted{color:var(--muted);font-size:13px;margin-top:6px}
+    .price{font-weight:900;color:var(--accent-dark);margin-top:8px}
+    .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .btn{padding:8px 10px;border-radius:8px;text-decoration:none;border:none;cursor:pointer}
+    .btn.primary{background:var(--accent);color:#fff}
+    .btn.ghost{background:transparent;border:1px solid #eee;color:var(--accent)}
+
+    .sale-tag{position:absolute;top:10px;right:10px;background:#ff7a2d;color:#fff;padding:6px 10px;border-radius:999px;font-weight:800;font-size:12px;animation:blink 1s infinite alternate}
+    .badge-km{position:absolute;left:10px;top:10px;background:#111;color:#fff;padding:6px 8px;border-radius:8px;font-weight:700;font-size:12px;animation:blink 1s infinite alternate}
+    @keyframes blink{0%{opacity:1}100%{opacity:.25}}
+
+    .service-box{flex:1;min-width:180px;background:var(--accent);border-radius:8px;padding:14px;color:#fff;text-align:center;font-weight:700}
+    .blog-post{background:#fff;padding:12px;border-radius:8px;border:1px solid #f0f0f0;margin-bottom:10px}
+    .popular-list{background:#fff;padding:12px;border-radius:8px;border:1px solid #f0f0f0}
+
+    footer{margin-top:26px;padding:18px;background:#fff;border-top:1px solid #f0f0f0;border-radius:8px}
+    .footer-links a{margin-right:10px;color:var(--accent);text-decoration:none}
+
+    /* responsive */
+    @media(max-width:980px){
+      .cards{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));}
+      .grid-wide{flex-direction:column}
+      .right-col{width:100%}
+      .actions{flex-direction:column}
+    }
+
+    label{display:block;margin-top:8px;font-size:13px}
+    input[type=date]{width:100%;padding:8px;border-radius:8px;border:1px solid #e6e6e6}
+    .card-date{display:flex;gap:6px;margin-top:8px}
+    .calc-line{margin-top:8px;font-weight:700}
+
+    /* fixed whatsapp */
+    .fixed-wa{position:fixed;right:18px;bottom:18px;background:var(--wa);color:#fff;border-radius:999px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.15);z-index:200;font-weight:800}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">Flext Filo Car</div>
+      <a class="link" href="#anasayfa">Ana Sayfa</a>
+      <a class="link" href="#araclar">Araçlar</a>
+      <a class="link" href="#hakkimizda">Hakkımızda</a>
+      <a class="link" href="#hizmetler">Hizmetlerimiz</a>
+      <a class="link" href="#populer">Popüler Yerler</a>
+      <a class="link" href="#blog">Blog</a>
+      <a class="link" href="#iletisim">İletişim</a>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <a class="btn ghost" href="tel:+905548211699">Hemen Ara</a>
+        <a class="btn primary" href="https://wa.me/905548211699" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="anasayfa" class="hero">
+      <h1>Flext Filo Car — Güvenli ve Ekonomik Araç Kiralama</h1>
+      <p>Türkiye’nin 81 ilinde hızlı, güvenilir ve ekonomik kiralama hizmeti. Site final sürüm — fiyat yalnızca kullanıcı tarih seçtiğinde hesaplanır.</p>
+    </section>
+
+    <div class="grid-wide">
+      <div class="left-col">
+
+        <section id="araclar">
+          <h2>Araçlar</h2>
+          <div style="margin:8px 0;display:flex;gap:8px;align-items:center">
+            <label style="margin:0">Araç Adı / Filtre:</label>
+            <input id="search" type="text" placeholder="Araç adı girin (örn: audi)" style="padding:8px;border-radius:8px;border:1px solid #eee;width:260px">
+          </div>
+
+          <div class="cards" id="cards"></div>
+        </section>
+
+        <!-- Hakkımızda comes immediately after Araçlar and before Hizmetler -->
+        <section id="hakkimizda" style="margin-top:18px">
+          <h2>Hakkımızda</h2>
+          <p>Flext Filo Car, Türkiye genelinde güvenilir, bakımlı ve sigortalı filo kiralama hizmeti sunan bir kuruluştur. Müşteri memnuniyetini ve şeffaflığı temel alır; araçlarımız düzenli olarak bakım ve servis süreçlerinden geçirilir. Kurumsal veya bireysel taleplere uygun geniş araç portföyü, esnek teslimat seçenekleri ve net sözleşme koşullarıyla hizmet veriyoruz.</p>
+          <h3>Neden Biz?</h3>
+          <p>• Güvenlik ve bakım önceliğimiz: Tüm araçlar periyodik bakımlıdır ve teslim öncesi %100 kontrol edilir.<br>• Sigorta ve kasko: Full kasko ve kapsamlı trafik sigortası ile korunursunuz.<br>• Rekabetçi fiyatlandırma: Açık, kampanyalı ve tercih edilebilir fiyat seçenekleri.<br>• 7/24 destek: Yol yardımı ve çağrı merkezi hizmetlerimiz her zaman ulaşılabilirdir.</p>
+        </section>
+
+        <section id="hizmetler" style="margin-top:18px">
+          <h2>Hizmetlerimiz</h2>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px">
+            <div class="service-box">Bakımlı Araçlar</div>
+            <div class="service-box">Full Kasko</div>
+            <div class="service-box">Kapsamlı Sigorta</div>
+            <div class="service-box">7/24 Destek</div>
+          </div>
+        </section>
+
+        <section id="populer" style="margin-top:18px">
+          <h2>Popüler Yerler</h2>
+          <div class="popular-list">
+            <ol>
+              <li>İstanbul Havalimanı</li>
+              <li>Ankara Esenboğa Havalimanı</li>
+              <li>İzmir Adnan Menderes Havalimanı</li>
+              <li>Antalya Havalimanı</li>
+              <li>Trabzon Havalimanı</li>
+              <li>Adana Şakirpaşa Havalimanı</li>
+              <li>Dalaman Havalimanı</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="blog" style="margin-top:18px">
+          <h2>Blog</h2>
+          <div class="blog-post"><strong>Kış Aylarında Güvenli Sürüş İpuçları</strong><br>Soğuk havalarda araç kullanırken dikkat edilmesi gerekenleri sizin için derledik. Kış lastikleri, antifriz ve yakıt kontrolü unutmayın!</div>
+          <div class="blog-post"><strong>Hafta Sonu %30 İndirim Kampanyası</strong><br>Flext Filo Car ile hafta sonu kiralamalarında %30’a varan indirim fırsatını kaçırmayın.</div>
+          <div class="blog-post"><strong>Yolculuk Öncesi Araç Kontrol Listesi</strong><br>Uzun yola çıkmadan önce aracınızın yağ, su, lastik ve far kontrollerini mutlaka yapın.</div>
+        </section>
+
+        <section id="iletisim" style="margin-top:18px">
+          <h2>İletişim</h2>
+          <p>📍 Adres: Türkiye<br>📞 Telefon: +90 554 821 1699<br>✉️ E-posta: info@onexcarfilo.com</p>
+        </section>
+
+      </div>
+
+      <aside class="right-col">
+        <div style="background:#fff;padding:12px;border-radius:8px;border:1px solid #f0f0f0">
+          <h3 style="margin:0;color:var(--accent)">Hızlı Bilgiler</h3>
+          <p class="small" style="margin-top:8px">Filomuz geniş; ekonomi, SUV ve minibüs segmentlerinde seçenekler. Periyodik bakım, temiz iç mekan ve güvenli sürüş garantisi.</p>
+        </div>
+
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+          <div class="service-box">Bakımlı Araçlar</div>
+          <div class="service-box">Full Kasko</div>
+          <div class="service-box">Kapsamlı Sigorta</div>
+          <div class="service-box">7/24 Destek</div>
+        </div>
+
+        <div style="margin-top:12px;background:#fff;padding:12px;border-radius:8px;border:1px solid #f0f0f0">
+          <h3 style="margin:0;color:var(--accent)">Adres & İletişim</h3>
+          <p class="small" style="margin-top:8px">📍 Türkiye<br>📞 +90 554 821 1699<br>✉️ info@onexcarfilo.com</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <div>© Flext Filo Car</div>
+      <div class="footer-links">
+        <a href="#kvkk">KVKK</a>
+        <a href="#gizlilik">Gizlilik</a>
+        <a href="#sss">SSS</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- fixed whatsapp -->
+  <a class="fixed-wa" href="https://wa.me/905548211699" target="_blank">💬 WhatsApp</a>
+
+  <script>
+    // --- Final araç listesi ---
+    const carsData = [
+      ['audi-a4',1500],['audi-a6',2200],['bmw-320i',1800],['bmw-520i',2200],['bmw-x1',1500],
+      ['citroen-berlingo',1750],['citroen-c3',1200],['citroen-spacetourer',1800],['dacia-duster',1500],
+      ['fiat-doblo',1500],['fiat-egea',950],['fiat-scudo',1000],['ford-fiesta',950],['ford-tourneo-courier',1400],
+      ['ford-tourneo-custom-1',1750],['ford-tourneo-custom-2',2200],['hyundai-i20',950],['hyundai-staria',1000],
+      ['htundai-tucson',2500],['jaguar-xf',3000],['kia-sportage',2500],['kia-rio',1500],['mercedes-e200',2200],
+      ['mercedes-c200',2200],['mercedes-gla',3000],['mercedes-sprinter',4500],['mercedes-vclass',3500],['mercedes-vito',5000],
+      ['nissan-qashqai',2500],['opel-corsa',1600],['peugeot-3008',2200],['peugeot-rifter',1800],['peugeot-traveller',2500],
+      ['renault-captur',2200],['renault-clio',900],['renault-kangoo',1500],['renault-master',4500],['renault-trafic',2500],
+      ['seat-ibiza',950],['skoda-superb',2000],['toyota-alphard',1500],['toyota-proace',1500],['toyota-rav4',2500],
+      ['toyota-yaris',950],['volkswagen-caddy',1500],['volkswagen-passat',2100],['volvo-s60',1700],['volkswagen-golf',1500],
+      ['seat-leon',1500],['ford-focus',1200],['renault-megane',1100]
+    ];
+
+    const cars = carsData.map(([id,price])=>({
+      id,
+      name: id.replace(/-/g,' ').replace(/\b\w/g,m=>m.toUpperCase()),
+      price,
+      img:`images/${id}.jpg`,
+      fuel: Math.random()<0.5?'Benzin':'Dizel',
+      gear: Math.random()<0.4?'Manuel':'Otomatik'
+    }));
+
+    cars.sort((a,b)=>a.price-b.price);
+
+    const cardsRoot = document.getElementById('cards');
+    function tl(n){return n.toLocaleString('tr-TR')+'₺';}
+    function daysBetween(a,b){const A=new Date(a);const B=new Date(b);if(isNaN(A)||isNaN(B))return 0;return Math.round((B-A)/(24*3600*1000))+1}
+
+    function renderCards(list){
+      cardsRoot.innerHTML = '';
+      list.forEach((car,idx)=>{
+        const el = document.createElement('div'); el.className='card';
+        const sale = (idx<3)?'<div class="sale-tag">%30’a varan indirim</div>':'';
+        const km = '<div class="badge-km">Sınırsız KM</div>';
+        el.innerHTML = `${sale}${km}<img src="${car.img}" alt="${car.name}" onerror="this.onerror=null;this.src='images/noimage.jpg'"><div class='body'><div class='car-name'>${car.name}</div><div class='muted'>${car.fuel} • ${car.gear}</div><div class='price'>${tl(car.price)}/gün</div>
+          <div class='card-date'>
+            <input type='date' class='dstart' title='Alış tarihi' aria-label='Alış tarihi'>
+            <input type='date' class='dend' title='Teslim tarihi' aria-label='Teslim tarihi'>
+          </div>
+          <div class='calc-line' data-price='${car.price}'>Toplam: -</div>
+          <div class='actions'>
+            <button class='btn primary calc-btn'>Hesapla</button>
+            <a class='btn ghost' href='tel:+905548211699'>Hemen Ara</a>
+          </div>
+        </div>`;
+        cardsRoot.appendChild(el);
+      });
+
+      // attach listeners for calc buttons
+      document.querySelectorAll('.card').forEach(card=>{
+        const start = card.querySelector('.dstart'); const end = card.querySelector('.dend'); const calcLine = card.querySelector('.calc-line'); const price = +calcLine.dataset.price; const calcBtn = card.querySelector('.calc-btn');
+        calcBtn.addEventListener('click',()=>{
+          const s = start.value; const e = end.value; const days = daysBetween(s,e);
+          if(!s || !e || days<=0){alert('Lütfen geçerli bir tarih aralığı seçin (başlangıç ve bitiş).'); calcLine.textContent = 'Toplam: -'; return;}
+          const base = price*days; let discount=0; let notes=[];
+          // weekend discount only informational — we do NOT auto-apply campaigns beyond tag label; keep behavior simple
+          // compute total = base for final
+          const total = Math.max(0, Math.round(base-discount));
+          calcLine.textContent = `Toplam: ${tl(total)} (${days} gün)` + (notes.length? ' • ' + notes.join('; '):'');
+        });
+      });
+    }
+
+    renderCards(cars);
+
+    // search filter
+    document.getElementById('search').addEventListener('input',function(){const q=this.value.trim().toLowerCase(); if(!q){renderCards(cars);return;} const filtered=cars.filter(c=>c.name.toLowerCase().includes(q)); renderCards(filtered);});
+
+  </script>
+</body>
+</html>
