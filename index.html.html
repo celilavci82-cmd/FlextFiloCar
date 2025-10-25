@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flext Filo Car — Araç Kiralama</title>
+<style>
+:root{
+  --bg:#ffffff;
+  --accent:#d60000;
+  --accent-700:#b00000;
+  --muted:#666;
+  --whatsapp:#25D366;
+  --card-radius:12px;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --green:#00cc44;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;background:var(--bg);color:#111;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+/* Promo */
+.promo{width:100%;background:linear-gradient(90deg,var(--accent),var(--accent-700));color:#fff;overflow:hidden;position:sticky;top:0;z-index:220;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+.promo .inner{max-width:1200px;margin:0 auto;padding:8px 18px;display:flex;align-items:center;gap:12px}
+.marquee{white-space:nowrap;display:inline-block;padding-left:100%;animation:marq 14s linear infinite;font-weight:700}
+@keyframes marq{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+/* header */
+header{position:sticky;top:44px;background:#fff;z-index:210;border-bottom:1px solid rgba(0,0,0,0.04)}
+.container{max-width:1200px;margin:0 auto;padding:12px}
+.topbar{display:flex;align-items:center;gap:16px}
+.brand{font-weight:800;color:var(--accent);font-size:20px;display:flex;align-items:center;gap:10px}
+.brand .dot{width:12px;height:12px;background:var(--accent);border-radius:50%}
+nav{margin-left:auto;display:flex;gap:10px;align-items:center}
+nav a{padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--accent);font-weight:600}
+nav a.cta{background:var(--accent);color:#fff;padding:8px 12px;border-radius:10px}
+
+/* top search/reservation */
+.top-search{max-width:1200px;margin:12px auto;padding:12px 14px;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.04);box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.top-search label{font-weight:700;color:#333;font-size:13px}
+.top-search input[type=text],.top-search input[type=date],.top-search select{padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);min-width:160px}
+.top-search .actions{margin-left:auto;display:flex;gap:8px;align-items:center}
+
+/* popular cars */
+.section{max-width:1200px;margin:18px auto;padding:0 14px}
+.popular-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:12px}
+@media(max-width:1200px){.popular-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:860px){.popular-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.popular-grid{grid-template-columns:1fr}}
+
+/* cards */
+.cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+@media(max-width:1200px){.cards-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:860px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.cards-grid{grid-template-columns:1fr}}
+
+.card{background:#fff;border-radius:var(--card-radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,0.04);position:relative;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,0.08)}
+.card img{width:100%;height:160px;object-fit:cover;display:block}
+.card .body{padding:12px;text-align:left}
+.car-name{font-weight:800;color:#111}
+.meta{color:var(--muted);font-size:13px;margin-top:6px}
+.price{font-weight:900;color:var(--accent);margin-top:8px}
+.actions{display:flex;gap:8px;margin-top:12px;align-items:center}
+.btn{padding:9px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:800}
+.btn.call{background:var(--accent);color:#fff;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--accent)}
+
+/* badge green blinking */
+.badge-km{position:absolute;left:10px;top:10px;background:var(--green);color:#fff;padding:6px 8px;border-radius:999px;font-weight:800;font-size:12px;z-index:2;animation:blink 1.6s infinite;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+@keyframes blink{0%{opacity:1;transform:scale(1)}45%{opacity:0.25;transform:scale(0.96)}100%{opacity:1;transform:scale(1)}}
+
+/* quick reservation (also below) */
+.quick-res{margin-top:18px;background:#fff;border-radius:12px;padding:14px;border:1px solid rgba(0,0,0,0.04);box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.quick-res label{font-weight:700;color:#333}
+.quick-res input,.quick-res select{padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)}
+
+/* services & blog */
+.service-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
+@media(max-width:900px){.service-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.service-cards{grid-template-columns:1fr}}
+.service-card{background:#fff;border-radius:10px;padding:12px;border:1px solid rgba(0,0,0,0.04);box-shadow:var(--shadow)}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;padding:18px;z-index:260}
+.dialog{background:#fff;border-radius:12px;max-width:860px;width:100%;max-height:88vh;overflow:auto;padding:16px;box-shadow:0 20px 40px rgba(0,0,0,0.12)}
+.dialog img{width:100%;height:320px;object-fit:cover;border-radius:8px}
+.dialog h2{margin:6px 0 8px 0;color:#111}
+.dialog .small{color:var(--muted);font-size:13px}
+
+/* drawers */
+.drawer{position:fixed;left:0;right:0;bottom:-100%;height:70vh;background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;box-shadow:0 -20px 40px rgba(0,0,0,0.12);z-index:300;transition:bottom .32s ease;overflow:auto;padding:18px}
+.drawer.open{bottom:0}
+.drawer .handle{width:48px;height:6px;background:#eee;border-radius:999px;margin:6px auto 12px auto}
+
+/* footer & whatsapp */
+footer{margin-top:26px;padding:22px;border-top:1px solid rgba(0,0,0,0.04);text-align:center;color:var(--muted)}
+footer a{color:var(--accent);text-decoration:none;margin:0 10px}
+.wh-top{position:fixed;top:12px;right:18px;background:var(--whatsapp);color:#fff;padding:8px 12px;border-radius:999px;font-weight:800;z-index:230;display:flex;gap:8px;align-items:center;box-shadow:0 8px 20px rgba(0,0,0,0.12)}
+.wh-bottom{position:fixed;right:18px;bottom:18px;background:var(--whatsapp);color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;z-index:230;box-shadow:0 12px 30px rgba(37,211,102,0.18)}
+
+/* responsive small */
+@media(max-width:680px){nav{display:none}.popular-grid,.cards-grid{grid-template-columns:1fr}.top-search{padding:10px}}
+</style>
+</head>
+<body>
+
+<!-- promo -->
+<div class="promo" role="banner">
+  <div class="inner"><small>🎉 Kampanya:</small><div style="flex:1;overflow:hidden"><div class="marquee">🎉 Tüm araçlarda bu hafta %10 indirim! — Hemen rezervasyon yap, fırsatı kaçırma!</div></div><small style="opacity:0.95">Geçerlilik: sınırlı süre</small></div>
+</div>
+
+<!-- whatsapp top -->
+<a class="wh-top" href="https://wa.me/905545811667" target="_blank" aria-label="WhatsApp">WhatsApp</a>
+
+<header>
+  <div class="container topbar">
+    <div class="brand"><span class="dot"></span> Flext Filo Car</div>
+    <nav>
+      <a href="#anasayfa">Ana Sayfa</a>
+      <a href="#araclar">Araçlar</a>
+      <a href="#hizmetler">Hizmetlerimiz</a>
+      <a href="#blog">Blog</a>
+      <a href="#iletisim">İletişim</a>
+      <a class="cta" href="tel:+905545811667">Hemen Ara</a>
+    </nav>
+  </div>
+</header>
+
+<!-- top search/reservation -->
+<div class="top-search" role="search" aria-label="Hızlı rezervasyon">
+  <label>Alış İli</label><select id="pickup_top"></select>
+  <label>Teslim İli</label><select id="dropoff_top"></select>
+  <label>Alış Tarihi</label><input type="date" id="start_top">
+  <label>Teslim Tarihi</label><input type="date" id="end_top">
+  <div class="actions"><input id="search_top" type="text" placeholder="Araç adı veya model"><button id="searchBtn" class="btn ghost">Ara</button><a class="btn call" href="tel:+905545811667">Hemen Ara</a></div>
+</div>
+
+<main class="section" id="main">
+  <!-- popular -->
+  <h2 style="color:var(--accent);margin:6px 0">Popüler Araçlar</h2>
+  <div class="popular-grid" id="popularTop"></div>
+
+  <!-- controls -->
+  <div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <input id="search" type="text" placeholder="Araç adı girin (örn: Audi, Toyota ...)" style="padding:10px;border-radius:8px;border:1px solid #eee;min-width:200px">
+    <button id="resetBtn" class="btn ghost">Temizle</button>
+    <div style="margin-left:auto;color:var(--muted)">Toplam: <strong id="count">0</strong></div>
+  </div>
+
+  <!-- all cards -->
+  <div class="cards-grid" id="cards" aria-live="polite"></div>
+
+  <!-- quick reservation -->
+  <div class="quick-res" id="quickRes">
+    <label>Alış Tarihi</label><input type="date" id="start" />
+    <label>Teslim Tarihi</label><input type="date" id="end" />
+    <label>Alış İli</label><select id="pickup"></select>
+    <label>Teslim İli</label><select id="dropoff"></select>
+    <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+      <div style="font-size:13px;color:var(--muted)">Seçili Araç: <span id="selected">Henüz araç seçilmedi</span></div>
+      <a id="quickWhats" class="btn ghost" href="#" target="_blank">WhatsApp ile Rezervasyon</a>
+      <a class="btn call" id="quickCall" href="tel:+905545811667">Hemen Ara</a>
+    </div>
+  </div>
+
+  <!-- services -->
+  <section id="hizmetler" style="margin-top:28px">
+    <h2>Hizmetlerimiz</h2>
+    <div class="service-cards">
+      <div class="service-card"><h4>Günlük Kiralama</h4><p class="small">Kısa süreli ihtiyaçlarınız için ekonomik ve esnek çözümler.</p></div>
+      <div class="service-card"><h4>Kurumsal Filo Kiralama</h4><p class="small">Şirketler için ölçeklenebilir filo çözümleri ve özel fiyatlandırma.</p></div>
+      <div class="service-card"><h4>VIP Transfer & Şoförlü Hizmet</h4><p class="small">Özel transfer ve VIP hizmet seçenekleri ile konforlu yolculuk.</p></div>
+    </div>
+  </section>
+
+  <!-- blog -->
+  <section id="blog" style="margin-top:28px">
+    <h2>Blog</h2>
+    <div class="service-cards">
+      <div class="service-card"><h4>Uzun yol için en ideal araçlar</h4><p class="small">Konfor ve yakıt ekonomisini bir arada sunan modelleri keşfedin.</p></div>
+      <div class="service-card"><h4>Sezonluk bakım ipuçları</h4><p class="small">Aracınızı kışa hazırlarken dikkat edilmesi gerekenler.</p></div>
+      <div class="service-card"><h4>Filo yönetiminde maliyet azaltma</h4><p class="small">Kurumsal araç giderlerinizi optimize etmenin yolları.</p></div>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section id="iletisim" style="margin-top:28px">
+    <h2>İletişim</h2>
+    <div class="service-cards">
+      <div class="service-card"><strong>Telefon</strong><div class="small">+90 554 581 1667</div></div>
+      <div class="service-card"><strong>E-posta</strong><div class="small">info@onexcarfilo.com</div></div>
+      <div class="service-card"><strong>Adres</strong><div class="small">Türkiye</div></div>
+    </div>
+  </section>
+
+  <footer style="margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:8px">
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="#" onclick="openDrawer('kvkk');return false">KVKK</a>
+      <a href="#" onclick="openDrawer('gizlilik');return false">Gizlilik Politikası</a>
+      <a href="#" onclick="openDrawer('sss');return false">SSS</a>
+    </div>
+    <div style="color:var(--muted);margin-top:6px">© Flext Filo Car — Tüm hakları saklıdır.</div>
+  </footer>
+</main>
+
+<!-- whatsapp bottom -->
+<a class="wh-bottom" href="https://wa.me/905545811667" target="_blank" aria-label="WhatsApp">💬</a>
+
+<!-- modal -->
+<div class="modal" id="modal">
+  <div class="dialog" id="dialog">
+    <button onclick="closeModal()" style="float:right;padding:6px 10px">Kapat</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- drawers -->
+<div class="drawer" id="kvkk"><div class="handle"></div><h3>Kişisel Verilerin Korunması (KVKK)</h3><p>NumberOne verileriniz...</p><div style="text-align:right;margin-top:12px"><button onclick="closeDrawer('kvkk')" class="btn ghost">Kapat</button></div></div>
+<div class="drawer" id="gizlilik"><div class="handle"></div><h3>Gizlilik Politikası</h3><p>Gizlilik politikası örneği...</p><div style="text-align:right;margin-top:12px"><button onclick="closeDrawer('gizlilik')" class="btn ghost">Kapat</button></div></div>
+<div class="drawer" id="sss"><div class="handle"></div><h3>SSS</h3><p>Sıkça sorulan sorular örneği...</p><div style="text-align:right;margin-top:12px"><button onclick="closeDrawer('sss')" class="btn ghost">Kapat</button></div></div>
+
+<script>
+// --- Araç verisi (düzeltilmiş id'ler)
+const carsData = [
+  ['audi-a4',1500],['audi-a6',2200],['bmw-320i',1800],['bmw-520i',2200],['bmw-x1',1500],
+  ['citroen-berlingo',1750],['citroen-c3',1200],['citroen-space-tourer',1800],['dacia-duster',1500],
+  ['fiat-doblo',1500],['fiat-egea',950],['fiat-scudo',1000],['ford-fiesta',950],['ford-tourneo-courier',1400],
+  ['ford-tourneo-custom',1750],['ford-tourneo-custom',2200],['hyundai-i20',950],['hyundai-staria',1000],
+  ['hyundai-tucson',2500],['jaguar-xf',3000],['kia-sportage',2500],['kia-rio',1500],['mercedes-e200',2200],
+  ['mercedes-c200',2200],['mercedes-gla',3000],['mercedes-sprinter',4500],['mercedes-vclass',3500],
+  ['mercedes-vito',5000],['nissan-qashqai',2500],['opel-corsa',1600],['peugeot-3008',2200],
+  ['peugeot-rifter',1800],['peugeot-traveller',2500],['renault-captur',2200],['renault-clio',900],
+  ['renault-kangoo',1500],['renault-master',4500],['renault-trafic',2500],['seat-ibiza',950],
+  ['skoda-superb',2000],['toyota-alphard',1500],['toyota-proace',1500],['toyota-rav4',2500],
+  ['toyota-yaris',950],['volkswagen-caddy',1500],['volkswagen-passat',2100],['volvo-s60',1700],
+  ['volkswagen-golf',1500],['seat-leon',1500],['ford-focus',1200],['renault-megane',1100]
+];
+
+const provinces = ["Adana","Adıyaman","Afyonkarahisar","Ağrı","Amasya","Ankara","Antalya","Artvin","Aydın","Balıkesir","Bilecik","Bingöl","Bitlis","Bolu","Burdur","Bursa","Çanakkale","Çankırı","Çorum","Denizli","Diyarbakır","Edirne","Elazığ","Erzincan","Erzurum","Eskişehir","Gaziantep","Giresun","Gümüşhane","Hakkari","Hatay","Isparta","Mersin","İstanbul","İzmir","Kars","Kastamonu","Kayseri","Kırıkkale","Kırklareli","Kırşehir","Kilis","Kocaeli","Konya","Kütahya","Malatya","Manisa","Kahramanmaraş","Mardin","Muğla","Muş","Nevşehir","Niğde","Ordu","Rize","Sakarya","Samsun","Siirt","Sinop","Sivas","Tekirdağ","Tokat","Trabzon","Tunceli","Şanlıurfa","Uşak","Van","Yozgat","Zonguldak","Aksaray","Bayburt","Karaman","Iğdır"];
+
+// build car objects
+const cars = carsData.map(([id,price])=>({id,name:id.replace(/-/g,' ').replace(/\b\w/g,m=>m.toUpperCase()),price,img:`images/${id}.jpg`,fuel: Math.random()<0.5?'Benzin':'Dizel',gear: Math.random()<0.4?'Manuel':'Otomatik'}));
+cars.sort((a,b)=>a.price-b.price);
+
+// DOM refs
+const cardsRoot = document.getElementById('cards');
+const popularTop = document.getElementById('popularTop');
+const pickupTop = document.getElementById('pickup_top');
+const dropoffTop = document.getElementById('dropoff_top');
+const pickup = document.getElementById('pickup');
+const dropoff = document.getElementById('dropoff');
+const countEl = document.getElementById('count');
+const searchTop = document.getElementById('search_top');
+const searchMain = document.getElementById('search');
+
+// populate provinces
+provinces.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;pickupTop.appendChild(o);});
+provinces.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;dropoffTop.appendChild(o);});
+provinces.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;pickup.appendChild(o);});
+provinces.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;dropoff.appendChild(o);});
+
+function tl(n){return n.toLocaleString('tr-TR')+'₺'}
+
+// render popular top (8)
+function renderPopularTop(){
+  popularTop.innerHTML='';
+  const pop = cars.slice(0,8);
+  pop.forEach(car=>{
+    const c=document.createElement('div');c.className='card';
+    c.innerHTML=`<div style="position:relative">${'<div class="badge-km">Sınırsız KM</div>'}<img src="${car.img}" alt="${car.name}" onerror="this.onerror=null;this.src='images/noimage.jpg'"></div><div class="body"><div class="car-name">${car.name}</div><div class="meta">${car.fuel} • ${car.gear}</div><div class="price">${tl(car.price)}/gün</div><div class="actions"><button class="btn ghost" onclick="openDetails('${car.id}')">Detay</button><a class="btn call" href="tel:+905545811667">Hemen Ara</a></div></div>`;
+    popularTop.appendChild(c);
+  });
+}
+
+// render cards
+function renderCards(list){
+  cardsRoot.innerHTML='';
+  countEl.textContent=list.length;
+  list.forEach(car=>{
+    const card=document.createElement('div');card.className='card';
+    card.innerHTML=`<div class="badge-km">Sınırsız KM</div><img src="${car.img}" alt="${car.name}" onerror="this.onerror=null;this.src='images/noimage.jpg'"><div class="body"><div class="car-name">${car.name}</div><div class="meta">${car.fuel} • ${car.gear}</div><div class="price">${tl(car.price)}/gün</div><div class="actions"><button class="btn ghost" onclick="openDetails('${car.id}')">Araç Detayları</button><a class="btn call" href="tel:+905545811667">Hemen Ara</a></div></div>`;
+    cardsRoot.appendChild(card);
+  });
+}
+
+renderPopularTop();
+renderCards(cars);
+
+// search handlers
+searchTop.addEventListener('input',function(){
+  const q=this.value.trim().toLowerCase();
+  if(!q){renderCards(cars);renderPopularTop();return;}
+  const filtered=cars.filter(c=>c.name.toLowerCase().includes(q));
+  renderCards(filtered);renderPopularTop();
+});
+searchMain.addEventListener('input',function(){
+  const q=this.value.trim().toLowerCase();
+  if(!q){renderCards(cars);return;}
+  renderCards(cars.filter(c=>c.name.toLowerCase().includes(q)));
+});
+document.getElementById('searchBtn').addEventListener('click',function(){const q=searchTop.value.trim().toLowerCase();if(!q){renderCards(cars);return;}renderCards(cars.filter(c=>c.name.toLowerCase().includes(q)));window.scrollTo({top:300,behavior:'smooth'});});
+document.getElementById('resetBtn').addEventListener('click',function(){document.getElementById('search').value='';document.getElementById('search_top').value='';renderCards(cars);renderPopularTop();});
+
+// modal
+function closeModal(){document.getElementById('modal').style.display='none';document.getElementById('modal').setAttribute('aria-hidden','true');}
+window.closeModal=closeModal;
+function openDetails(id){
+  const car=cars.find(c=>c.id===id);if(!car)return alert('Araç bulunamadı');
+  document.getElementById('selected').textContent = car.name + ' — ' + tl(car.price) + '/gün';
+  const mb=document.getElementById('modal-body');
+  mb.innerHTML=`<h2>${car.name}</h2><img src="${car.img}" alt="${car.name}" onerror="this.onerror=null;this.src='images/noimage.jpg'"><div style="margin-top:12px"><p><strong>Günlük Ücret:</strong> ${tl(car.price)}</p><p><strong>Yakıt:</strong> ${car.fuel}</p><p><strong>Vites:</strong> ${car.gear}</p><p class="small">Kasko: Full Kasko + Trafik Sigortası. Detaylı şartlar sözleşmede yer alır.</p></div><div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn call" href="tel:+905545811667">Hemen Ara</a><a class="btn ghost" href="https://wa.me/905545811667?text=${encodeURIComponent('Merhaba, '+car.name+' hakkında bilgi almak istiyorum')}" target="_blank">WhatsApp</a><button class="btn ghost" onclick="closeModal()">Kapat</button></div>`;
+  document.getElementById('modal').style.display='flex';document.getElementById('modal').setAttribute('aria-hidden','false');
+}
+window.openDetails=openDetails;
+
+// quick reservation defaults & quick whatsapp
+const today=new Date().toISOString().slice(0,10);const plus3=new Date(Date.now()+3*24*3600*1000).toISOString().slice(0,10);
+document.getElementById('start_top').value=today;document.getElementById('end_top').value=plus3;document.getElementById('start').value=today;document.getElementById('end').value=plus3;
+document.getElementById('quickWhats')?.addEventListener('click',function(e){e.preventDefault();const sel=document.getElementById('selected').textContent||'-';const s=document.getElementById('start').value||'-';const eDate=document.getElementById('end').value||'-';const pk=pickup.value||'-';const dp=dropoff.value||'-';const msg=`Merhaba, ${sel} araç için ${s} - ${eDate} tarihleri arasında fiyat almak istiyorum. Alış: ${pk} Teslim: ${dp}`;window.open('https://wa.me/905545811667?text='+encodeURIComponent(msg),'_blank');});
+
+// drawers
+function openDrawer(id){document.querySelectorAll('.drawer').forEach(d=>d.classList.remove('open'));const el=document.getElementById(id);if(el)el.classList.add('open');setTimeout(()=>{el.scrollTop=0},200)}
+function closeDrawer(id){const el=document.getElementById(id);if(el)el.classList.remove('open')}
+
+// count
+document.getElementById('count').textContent = cars.length;
+</script>
+</body>
+</html>
